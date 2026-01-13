@@ -63,7 +63,3 @@ docker run -e ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD=docker1234! -e MSSQL_PID=Develo
 .\mvnw spring-boot:run
 ```
 
-2. 등록
-
-3. 조회
-
