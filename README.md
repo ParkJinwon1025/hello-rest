@@ -49,11 +49,17 @@ docker run --name postgres-db -p 5432:5432 -e POSTGRES_PASSWORD=1234 -e POSTGRES
 ```bash
 # MSSQL
 docker pull mcr.microsoft.com/mssql/server:2025-latest
-docker run -e ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD=StrongP@ssw0rd! -e MSSQL_PID=Developer -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2025-latest
+
+# -v 옵션 포함
+docker run -e ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD=docker1234! -e MSSQL_PID=Developer -p 1433:1433 --name sql1 --user root -v C:/mssql-data:/var/opt/mssql -d mcr.microsoft.com/mssql/server:2022-latest
+
+# -v 옵션 없이
+docker run -e ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD=docker1234! -e MSSQL_PID=Developer -p 1433:1433 --name sql1 --user root-d mcr.microsoft.com/mssql/server:2022-latest
 ```
 
 3. 터미널에서 Spring Boot 애플리케이션 실행
 ```bash
+# test 폴더에서는 '>' 화살표 클릭과 동일함.
 .\mvnw spring-boot:run
 ```
 
@@ -61,5 +67,3 @@ docker run -e ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD=StrongP@ssw0rd! -e MSSQL_PID=De
 
 3. 조회
 
--- test랑 메인이랑 
-    '>'화살표 클릭 = .\mvnw spring-boot:run
