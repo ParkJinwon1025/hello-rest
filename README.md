@@ -35,7 +35,7 @@ docker-compose down
 
 1. `docker Desktop` 실행
 
-2. 터미널에서 명령어 실행 (**버전은 이미지 마다 다를 수 있음.**)
+2. 터미널에서 Docker 실행 (**버전은 이미지 마다 다를 수 있음.**)
 ```bash
 # MySQL
 docker pull mysql:9.5.0
@@ -49,8 +49,12 @@ docker run --name postgres-db -p 5432:5432 -e POSTGRES_PASSWORD=1234 -e POSTGRES
 ```bash
 # MSSQL
 docker pull mcr.microsoft.com/mssql/server:2025-latest
-docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=StrongP@ssw0rd!" -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2025-latest
+docker run -e ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD=StrongP@ssw0rd! -e MSSQL_PID=Developer -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2025-latest
+```
 
+3. 터미널에서 Spring Boot 애플리케이션 실행
+```bash
+.\mvnw spring-boot:run
 ```
 
 2. 등록
