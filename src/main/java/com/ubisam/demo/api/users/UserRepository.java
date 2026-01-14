@@ -1,7 +1,8 @@
 package com.ubisam.demo.api.users;
-import com.ubisam.demo.domain.User;
-import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.ubisam.demo.domain.User;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
