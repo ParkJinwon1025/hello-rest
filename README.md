@@ -50,11 +50,14 @@ docker run --name postgres-db -p 5432:5432 -e POSTGRES_PASSWORD=1234 -e POSTGRES
 # MSSQL
 docker pull mcr.microsoft.com/mssql/server:2025-latest
 
-# -v 옵션 포함
-docker run -e ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD=docker1234! -e MSSQL_PID=Developer -p 1433:1433 --name sql1 --user root -v C:/mssql-data:/var/opt/mssql -d mcr.microsoft.com/mssql/server:2022-latest
+# 컨테이너 실행
+docker run -d --name mssql -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=msSQL1234!" -p 14330:1433 -v C:\workspace\hello-docker\backup:/var/opt/mssql/backup ` mcr.microsoft.com/mssql/server:2022-latest
 
-# -v 옵션 없이
-docker run -e ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD=docker1234! -e MSSQL_PID=Developer -p 1433:1433 --name sql1 --user root-d mcr.microsoft.com/mssql/server:2022-latest
+# BackUp 파일 만들기
+docker exec -it mssql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "msSQL1234!" -Q "BACKUP DATABASE [MyDb] TO DISK = N'/var/opt/mssql/backup/MyDb.bak' WITH INIT, COMPRESSION" -C
+
+# BackUp 파일 Restore
+docker exec -it mssql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "msSQL1234!" -C -Q "RESTORE DATABASE [MyDb] FROM DISK = N'/var/opt/mssql/backup/MyDb.bak' WITH MOVE N'MyDb' TO N'/var/opt/mssql/data/MyDb.mdf', MOVE N'MyDb_log' TO N'/var/opt/mssql/data/MyDb_log.ldf', REPLACE, RECOVERY;"
 ```
 
 3. 터미널에서 Spring Boot 애플리케이션 실행
