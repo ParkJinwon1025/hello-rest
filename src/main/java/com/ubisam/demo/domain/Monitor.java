@@ -14,5 +14,6 @@ public class Monitor {
     private Long id;
     private String name;
     private String size;
+    private String price;
 
 }
